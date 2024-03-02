@@ -1,11 +1,11 @@
-FROM eclipse-temurin:17-jdk-alpine
+# Use an official OpenJDK runtime as a parent image
+FROM openjdk:17-jdk-alpine
 
+# Set the working directory to /app
 WORKDIR /app
 
-COPY .mvn/ .mvn
-COPY mvnw pom.xml ./
+# Copy the executable jar file and the application.properties file to the container
+COPY target/openshift-mvn-0.0.1-SNAPSHOT.jar /app/
 
-
-COPY src ./src
-
-CMD ["./mvnw", "spring-boot:run"]
+# Set the command to run the Spring Boot application
+CMD ["java", "-jar", "openshift-mvn-0.0.1-SNAPSHOT.jar"]

@@ -14,7 +14,9 @@
     <name>openshift-mvn</name>
     <description>openshift-mvn</description>
     <properties>
-        <java.version>17</java.version>
+        <java.version>18</java.version>
+        <fabric8.generator.from>registry.access.redhat.com/redhat-openjdk-17/openjdk17-openshift:latest
+        </fabric8.generator.from>
     </properties>
     <dependencies>
         <dependency>
@@ -28,14 +30,52 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+    <!-- Specify the repositories containing Spring Boot artifacts -->
+    <repositories>
+        <repository>
+            <id>redhat-ga</id>
+            <name>Red Hat GA Repository</name>
+            <url>https://maven.repository.redhat.com/ga/</url>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>redhat-ga</id>
+            <name>Red Hat GA Repository</name>
+            <url>https://maven.repository.redhat.com/ga/</url>
+        </pluginRepository>
+    </pluginRepositories>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
+
+    <profiles>
+        <profile>
+            <id>openshift</id>
+            <build>
+
+                <plugins>
+                    <plugin>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-maven-plugin</artifactId>
+                    </plugin>
+
+
+                    <plugin>
+                        <groupId>org.eclipse.jkube</groupId>
+                        <artifactId>openshift-maven-plugin</artifactId>
+                        <version>1.0.0-alpha-4</version>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>resource</goal>
+                                    <goal>build</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
 
 </project>

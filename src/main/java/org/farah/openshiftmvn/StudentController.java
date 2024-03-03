@@ -2,10 +2,8 @@ package org.farah.openshiftmvn;
 
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.List;
 
@@ -14,12 +12,27 @@ import java.util.List;
 public class StudentController {
 
     final StudentService studentService;
+    final StudentRepository studentRepository;
 
-
-    public StudentController(StudentService studentService) {
+    public StudentController(StudentService studentService, StudentRepository studentRepository) {
         this.studentService = studentService;
+        this.studentRepository = studentRepository;
     }
 
+    @GetMapping("/mongo")
+    private List<Student> findAllMongos() {
+        return studentRepository.findAll();
+    }
+
+    @PostMapping
+    private ResponseEntity<Void> save(@RequestBody Student student) {
+        Student saved = studentRepository.save(student);
+        var location = ServletUriComponentsBuilder.fromCurrentRequestUri()
+                .path("/{id}")
+                .buildAndExpand(saved.getId())
+                .toUri();
+        return ResponseEntity.created(location).build();
+    }
 
     @GetMapping
     private List<Student> findAll() {

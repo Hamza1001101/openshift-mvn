@@ -60,14 +60,7 @@
                     </excludes>
                 </configuration>
             </plugin>
-            <plugin>
-                <gourpId>com.spotify</gourpId>
-                <artifactId>dockerfile-maven-plugin</artifactId>
-                <version>1.4.8</version>
-                <configuration>
-                    <repository>openshift/${project.artifactId}</repository>
-                </configuration>
-            </plugin>
+            
         </plugins>
     </build>
 </project>

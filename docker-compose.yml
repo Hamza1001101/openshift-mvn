@@ -1,0 +1,13 @@
+version: '3.1'
+
+services:
+
+  db:
+    image: mongo
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      MONGODB_USERNAME: "{{USERNAME}}"
+      MONGODB_PASSWORD: "{{ PASSWORD }}"
+      MONGODB_NAME: "{{DATABASENAME}}"

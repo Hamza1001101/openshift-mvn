@@ -1,4 +1,4 @@
-package org.farah.openshiftmvn;
+package org.farah.openshiftmvn.util;
 
 import java.util.HashMap;
 import java.util.Map;

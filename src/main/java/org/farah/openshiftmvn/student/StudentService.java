@@ -1,11 +1,10 @@
-package org.farah.openshiftmvn;
+package org.farah.openshiftmvn.student;
 
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Random;
 
 @Service
 public class StudentService {

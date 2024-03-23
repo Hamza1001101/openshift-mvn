@@ -6,7 +6,7 @@ services:
     image: mongo
     restart: always
     ports:
-      - "5432:5432"
+      - "27017:27017"
     environment:
       MONGODB_USERNAME: "{{USERNAME}}"
       MONGODB_PASSWORD: "{{ PASSWORD }}"
